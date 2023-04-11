@@ -17,6 +17,8 @@ const (
 	FormatDid = "did"
 	// FormatUri is the format name for Uniform Resource Identifier (URI) Format.
 	FormatUri = "uri"
+	// FormatAliases is the format name for Aliases Identifier Format.
+	FormatAliases = "aliases"
 
 	// FieldFormat is the field name for "format" field.
 	// This field is used in all identifier format.
