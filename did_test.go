@@ -7,7 +7,7 @@ import (
 )
 
 func TestDidIdentifier(t *testing.T) {
-	wantUrl := "acct:example.user@service.example.com"
+	wantUrl := "did:example:123456"
 	id, err := secevsubid.NewDidIdentifier(wantUrl)
 	if err != nil {
 		t.Error(err)
