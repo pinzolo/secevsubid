@@ -51,7 +51,7 @@ var (
 	// ErrEmptyId is error raised when id value does not exist at generation time.
 	ErrEmptyId = errors.New("empty id")
 	// ErrEmptyPhoneNumber is error raised when phoneNumber value does not exist at generation time.
-	ErrEmptyPhoneNumber = errors.New("empty phoneNumber")
+	ErrEmptyPhoneNumber = errors.New("empty phone number")
 	// ErrEmptyUrl is error raised when url value does not exist at generation time.
 	ErrEmptyUrl = errors.New("empty url")
 )
