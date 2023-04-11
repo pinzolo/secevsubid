@@ -64,4 +64,12 @@ var (
 	ErrEmptyPhoneNumber = errors.New("empty phone number")
 	// ErrEmptyUrl is error raised when url value does not exist at generation time.
 	ErrEmptyUrl = errors.New("empty url")
+	// ErrNoFormat is error raised when JSON object doesn't have "format" field.
+	ErrNoFormat = errors.New("no format")
+	// ErrNestedAliases is error raised  when identifiers in Aliases Identifier Format include Aliases Identifier Format.
+	ErrNestedAliases = errors.New("nested aliases")
+	// ErrDuplicatedIdentifier is error raised when duplicate identifiers exist in identifiers field.
+	ErrDuplicatedIdentifier = errors.New("identifier duplicated")
+	// ErrEmptyIdentifiers is error raised when identifiers value does not exist at generation time.
+	ErrEmptyIdentifiers = errors.New("empty identifiers")
 )
