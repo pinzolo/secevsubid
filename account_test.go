@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccountSubjectIdentifier(t *testing.T) {
-	wantUri := "want-uri"
+	wantUri := "acct:example.user@service.example.com"
 	id, err := secevsubid.NewAccountSubjectIdentifier(wantUri)
 	if err != nil {
 		t.Error(err)
