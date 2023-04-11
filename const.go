@@ -13,6 +13,8 @@ const (
 	FormatOpaque = "opaque"
 	// FormatPhoneNumber is the format name for Phone Number Identifier Format.
 	FormatPhoneNumber = "phone_number"
+	// FormatDid is the format name for Decentralized Identifier (DID) Format.
+	FormatDid = "did"
 
 	// FieldFormat is the field name for "format" field.
 	// This field is used in all identifier format.
@@ -50,4 +52,6 @@ var (
 	ErrEmptyId = errors.New("empty id")
 	// ErrEmptyPhoneNumber is error raised when phoneNumber value does not exist at generation time.
 	ErrEmptyPhoneNumber = errors.New("empty phoneNumber")
+	// ErrEmptyUrl is error raised when url value does not exist at generation time.
+	ErrEmptyUrl = errors.New("empty url")
 )
