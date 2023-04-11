@@ -49,6 +49,14 @@ func NewWrapper(id SubjectIdentifier) *Wrapper {
 	return &Wrapper{v: id}
 }
 
+var extractStringValue = func(m map[string]interface{}, name string) string {
+	s, ok := m[name]
+	if !ok {
+		return ""
+	}
+	return s.(string)
+}
+
 // DecodeJSON decodes to the appropriate SubjectIdentifier instance.
 // Which format is decoded is determined by the value of the "format" field,
 // and an error is returned if there is no corresponding format.
@@ -58,33 +66,70 @@ func DecodeJSON(b []byte) (SubjectIdentifier, error) {
 		return nil, err
 	}
 
+	return decodeIdentifier(m)
+}
+
+func decodeIdentifier(m map[string]interface{}) (SubjectIdentifier, error) {
 	f, ok := m[fieldFormat].(string)
 	if !ok {
 		return nil, ErrNoFormat
 	}
 
-	fn := func(name string) string {
-		return m[name].(string)
-	}
 	switch f {
 	case FormatAccount:
-		return NewAccountIdentifier(fn(fieldUri))
+		return NewAccountIdentifier(extractStringValue(m, fieldUri))
 	case FormatEmail:
-		return NewEmailIdentifier(fn(fieldEmail))
+		return NewEmailIdentifier(extractStringValue(m, fieldEmail))
 	case FormatIssuerSubject:
-		return NewIssuerSubjectIdentifier(fn(fieldIssuer), fn(fieldSubject))
+		return NewIssuerSubjectIdentifier(extractStringValue(m, fieldIssuer), extractStringValue(m, fieldSubject))
 	case FormatOpaque:
-		return NewOpaqueIdentifier(fn(fieldId))
+		return NewOpaqueIdentifier(extractStringValue(m, fieldId))
 	case FormatPhoneNumber:
-		return NewPhoneNumberIdentifier(fn(fieldPhoneNumber))
+		return NewPhoneNumberIdentifier(extractStringValue(m, fieldPhoneNumber))
 	case FormatDid:
-		return NewDidIdentifier(fn(fieldUrl))
+		return NewDidIdentifier(extractStringValue(m, fieldUrl))
 	case FormatUri:
-		return NewUriIdentifier(fn(FormatUri))
+		return NewUriIdentifier(extractStringValue(m, fieldUri))
 	case FormatAliases:
-		// TODO
-		return nil, nil
+		return decodeAliases(m)
 	}
 
 	return nil, fmt.Errorf("unknown format: %s", f)
+}
+
+func decodeAliases(m map[string]interface{}) (SubjectIdentifier, error) {
+	vs := m[fieldIdentifiers].([]interface{})
+	if len(vs) == 0 {
+		return nil, ErrEmptyIdentifiers
+	}
+
+	ids := make([]SubjectIdentifier, len(vs))
+	for i, v := range vs {
+		d, ok := v.(map[string]interface{})
+		if !ok {
+			return nil, fmt.Errorf("not JSON object: %v", v)
+		}
+
+		f := extractStringValue(d, fieldFormat)
+		if f == "" {
+			return nil, ErrNoFormat
+		}
+		if f == FormatAliases {
+			return nil, ErrNestedAliases
+		}
+
+		id, err := decodeIdentifier(d)
+		if err != nil {
+			return nil, err
+		}
+
+		ids[i] = id
+	}
+
+	id, err := NewAliasesIdentifier(ids...)
+	if err != nil {
+		return nil, err
+	}
+
+	return id, nil
 }
