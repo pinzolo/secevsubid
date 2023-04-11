@@ -42,11 +42,14 @@ const (
 	// FieldUrl is the field name for "url" field.
 	// This field is used in Decentralized Identifier (DID) Identifier Format.
 	fieldUrl = "url"
+	// FieldIdentifiers is the field name for "identifiers" field.
+	// This field is used in Aliases Identifier Format
+	fieldIdentifiers = "identifiers"
 )
 
 var (
 	// ErrEmptyUri is error raised when email value does not exist at generation time.
-	ErrEmptyUri = errors.New("empty email")
+	ErrEmptyUri = errors.New("empty uri")
 	// ErrEmptyEmail is error raised when email value does not exist at generation time.
 	ErrEmptyEmail = errors.New("empty email")
 	// ErrEmptyIssuer is error raised when iss value does not exist at generation time.
