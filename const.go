@@ -9,6 +9,8 @@ const (
 	FormatEmail = "email"
 	// FormatIssuerSubject is the format name for Issuer and Subject Identifier Format.
 	FormatIssuerSubject = "iss_sub"
+	// FormatOpaque is the format name for Opaque Identifier Format.
+	FormatOpaque = "opaque"
 
 	// FieldFormat is the field name for "format" field.
 	// This field is used in all identifier format.
@@ -36,4 +38,6 @@ var (
 	ErrEmptyIssuer = errors.New("empty iss")
 	// ErrEmptySubject is error raised when sub value does not exist at generation time.
 	ErrEmptySubject = errors.New("empty sub")
+	// ErrEmptyId is error raised when id value does not exist at generation time.
+	ErrEmptyId = errors.New("empty id")
 )
