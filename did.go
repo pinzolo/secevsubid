@@ -46,7 +46,7 @@ func (id *didIdentifier) MarshalJSON() ([]byte, error) {
 	return json.Marshal(m)
 }
 
-// NewDidIdentifier creates new instance of DidIdentifier.,
+// NewDidIdentifier creates new instance of DidIdentifier.
 // The argument "url" is required. If it's empty, this function returns error.
 func NewDidIdentifier(url string) (DidIdentifier, error) {
 	id := &didIdentifier{

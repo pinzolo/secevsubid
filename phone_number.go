@@ -46,7 +46,7 @@ func (id *phoneNumberIdentifier) MarshalJSON() ([]byte, error) {
 	return json.Marshal(m)
 }
 
-// NewPhoneNumberIdentifier creates new instance of PhoneNumberIdentifier.,
+// NewPhoneNumberIdentifier creates new instance of PhoneNumberIdentifier.
 // The argument "phoneNumber" is required. If it's empty, this function returns error.
 func NewPhoneNumberIdentifier(phoneNumber string) (PhoneNumberIdentifier, error) {
 	id := &phoneNumberIdentifier{

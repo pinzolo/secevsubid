@@ -46,7 +46,7 @@ func (id *emailIdentifier) MarshalJSON() ([]byte, error) {
 	return json.Marshal(m)
 }
 
-// NewEmailIdentifier creates new instance of EmailIdentifier.,
+// NewEmailIdentifier creates new instance of EmailIdentifier.
 // The argument "email" is required. If it's empty, this function returns error.
 func NewEmailIdentifier(email string) (EmailIdentifier, error) {
 	id := &emailIdentifier{

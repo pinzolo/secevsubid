@@ -58,7 +58,7 @@ func (id *issSubIdentifier) MarshalJSON() ([]byte, error) {
 	return json.Marshal(m)
 }
 
-// NewIssuerSubjectIdentifier creates new instance of IssuerSubjectIdentifier.,
+// NewIssuerSubjectIdentifier creates new instance of IssuerSubjectIdentifier.
 // The argument "issuer" and "subject" is required. If either one of them is empty, this function returns error.
 func NewIssuerSubjectIdentifier(issuer string, subject string) (IssuerSubjectIdentifier, error) {
 	id := &issSubIdentifier{

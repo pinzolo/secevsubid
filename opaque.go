@@ -46,7 +46,7 @@ func (id *opaqueIdentifier) MarshalJSON() ([]byte, error) {
 	return json.Marshal(m)
 }
 
-// NewOpaqueIdentifier creates new instance of OpaqueIdentifier.,
+// NewOpaqueIdentifier creates new instance of OpaqueIdentifier.
 // The argument "id" is required. If it's empty, this function returns error.
 func NewOpaqueIdentifier(id string) (OpaqueIdentifier, error) {
 	o := &opaqueIdentifier{
