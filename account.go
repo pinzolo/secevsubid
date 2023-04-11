@@ -2,9 +2,9 @@ package secevsubid
 
 import "encoding/json"
 
-// AccountSubjectIdentifier is one of the sub-interfaces of SubjectIdentifier.
+// AccountIdentifier is one of the sub-interfaces of SubjectIdentifier.
 // It represents the "Account Identifier Format" defined in the specification.
-type AccountSubjectIdentifier interface {
+type AccountIdentifier interface {
 	// Format returns name of the format actually held by the instance.
 	// The value is the fixed value "account".
 	Format() string
@@ -16,20 +16,20 @@ type AccountSubjectIdentifier interface {
 	MarshalJSON() ([]byte, error)
 }
 
-type accountSubjectIdentifier struct {
+type accountIdentifier struct {
 	format string
 	uri    string
 }
 
-func (id *accountSubjectIdentifier) Format() string {
+func (id *accountIdentifier) Format() string {
 	return id.format
 }
 
-func (id *accountSubjectIdentifier) Uri() string {
+func (id *accountIdentifier) Uri() string {
 	return id.uri
 }
 
-func (id *accountSubjectIdentifier) Validate() error {
+func (id *accountIdentifier) Validate() error {
 	if id.uri == "" {
 		return ErrEmptyUri
 	}
@@ -37,7 +37,7 @@ func (id *accountSubjectIdentifier) Validate() error {
 	return nil
 }
 
-func (id *accountSubjectIdentifier) MarshalJSON() ([]byte, error) {
+func (id *accountIdentifier) MarshalJSON() ([]byte, error) {
 	m := map[string]string{
 		fieldFormat: id.Format(),
 		fieldUri:    id.Uri(),
@@ -46,10 +46,10 @@ func (id *accountSubjectIdentifier) MarshalJSON() ([]byte, error) {
 	return json.Marshal(m)
 }
 
-// NewAccountSubjectIdentifier creates new instance of AccountSubjectIdentifier.,
+// NewAccountIdentifier creates new instance of AccountIdentifier.,
 // The argument "uri" is required. If it's empty, this function raises error.
-func NewAccountSubjectIdentifier(uri string) (AccountSubjectIdentifier, error) {
-	id := &accountSubjectIdentifier{
+func NewAccountIdentifier(uri string) (AccountIdentifier, error) {
+	id := &accountIdentifier{
 		format: FormatAccount,
 		uri:    uri,
 	}

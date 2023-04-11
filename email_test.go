@@ -6,9 +6,9 @@ import (
 	"testing"
 )
 
-func TestEmailSubjectIdentifier(t *testing.T) {
+func TestEmailIdentifier(t *testing.T) {
 	wantEmail := "user@example.com"
-	id, err := secevsubid.NewEmailSubjectIdentifier(wantEmail)
+	id, err := secevsubid.NewEmailIdentifier(wantEmail)
 	if err != nil {
 		t.Error(err)
 		return
@@ -32,8 +32,8 @@ func TestEmailSubjectIdentifier(t *testing.T) {
 	}
 }
 
-func TestEmailSubjectIdentifierWithEmptyUri(t *testing.T) {
-	_, err := secevsubid.NewEmailSubjectIdentifier("")
+func TestEmailIdentifierWithEmptyEmail(t *testing.T) {
+	_, err := secevsubid.NewEmailIdentifier("")
 	if err == nil {
 		t.Error("error should be raised when email is empty")
 	}

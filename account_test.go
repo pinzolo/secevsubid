@@ -6,9 +6,9 @@ import (
 	"testing"
 )
 
-func TestAccountSubjectIdentifier(t *testing.T) {
+func TestAccountIdentifier(t *testing.T) {
 	wantUri := "acct:example.user@service.example.com"
-	id, err := secevsubid.NewAccountSubjectIdentifier(wantUri)
+	id, err := secevsubid.NewAccountIdentifier(wantUri)
 	if err != nil {
 		t.Error(err)
 		return
@@ -32,8 +32,8 @@ func TestAccountSubjectIdentifier(t *testing.T) {
 	}
 }
 
-func TestAccountSubjectIdentifierWithEmptyUri(t *testing.T) {
-	_, err := secevsubid.NewAccountSubjectIdentifier("")
+func TestAccountIdentifierWithEmptyUri(t *testing.T) {
+	_, err := secevsubid.NewAccountIdentifier("")
 	if err == nil {
 		t.Error("error should be raised when uri is empty")
 	}

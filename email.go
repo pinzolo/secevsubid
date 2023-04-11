@@ -2,9 +2,9 @@ package secevsubid
 
 import "encoding/json"
 
-// EmailSubjectIdentifier is one of the sub-interfaces of SubjectIdentifier.
+// EmailIdentifier is one of the sub-interfaces of SubjectIdentifier.
 // It represents the "Email Identifier Format" defined in the specification.
-type EmailSubjectIdentifier interface {
+type EmailIdentifier interface {
 	// Format returns name of the format actually held by the instance.
 	// The value is the fixed value "email".
 	Format() string
@@ -16,20 +16,20 @@ type EmailSubjectIdentifier interface {
 	MarshalJSON() ([]byte, error)
 }
 
-type emailSubjectIdentifier struct {
+type emailIdentifier struct {
 	format string
 	email  string
 }
 
-func (id *emailSubjectIdentifier) Format() string {
+func (id *emailIdentifier) Format() string {
 	return id.format
 }
 
-func (id *emailSubjectIdentifier) Email() string {
+func (id *emailIdentifier) Email() string {
 	return id.email
 }
 
-func (id *emailSubjectIdentifier) Validate() error {
+func (id *emailIdentifier) Validate() error {
 	if id.email == "" {
 		return ErrEmptyEmail
 	}
@@ -37,7 +37,7 @@ func (id *emailSubjectIdentifier) Validate() error {
 	return nil
 }
 
-func (id *emailSubjectIdentifier) MarshalJSON() ([]byte, error) {
+func (id *emailIdentifier) MarshalJSON() ([]byte, error) {
 	m := map[string]string{
 		fieldFormat: id.Format(),
 		fieldEmail:  id.Email(),
@@ -46,10 +46,10 @@ func (id *emailSubjectIdentifier) MarshalJSON() ([]byte, error) {
 	return json.Marshal(m)
 }
 
-// NewEmailSubjectIdentifier creates new instance of EmailSubjectIdentifier.,
+// NewEmailIdentifier creates new instance of EmailIdentifier.,
 // The argument "email" is required. If it's empty, this function raises error.
-func NewEmailSubjectIdentifier(email string) (EmailSubjectIdentifier, error) {
-	id := &emailSubjectIdentifier{
+func NewEmailIdentifier(email string) (EmailIdentifier, error) {
+	id := &emailIdentifier{
 		format: FormatEmail,
 		email:  email,
 	}
