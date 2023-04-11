@@ -11,6 +11,8 @@ const (
 	FormatIssuerSubject = "iss_sub"
 	// FormatOpaque is the format name for Opaque Identifier Format.
 	FormatOpaque = "opaque"
+	// FormatPhoneNumber is the format name for Phone Number Identifier Format.
+	FormatPhoneNumber = "phone_number"
 
 	// FieldFormat is the field name for "format" field.
 	// This field is used in all identifier format.
@@ -27,6 +29,12 @@ const (
 	// FieldSubject is the field name for "sub" field.
 	// This field is used in Issuer and Subject Identifier Format.
 	fieldSubject = "sub"
+	// FieldId is the field name for "id" field.
+	// This field is used in Opaque Identifier Format.
+	fieldId = "id"
+	// FieldPhoneNumber is the field name for "phoneNumber" field.
+	// This field is used in Phone Number Identifier Format.
+	fieldPhoneNumber = "phone_number"
 )
 
 var (
@@ -40,4 +48,6 @@ var (
 	ErrEmptySubject = errors.New("empty sub")
 	// ErrEmptyId is error raised when id value does not exist at generation time.
 	ErrEmptyId = errors.New("empty id")
+	// ErrEmptyPhoneNumber is error raised when phoneNumber value does not exist at generation time.
+	ErrEmptyPhoneNumber = errors.New("empty phoneNumber")
 )
