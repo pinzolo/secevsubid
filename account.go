@@ -47,7 +47,7 @@ func (id *accountIdentifier) MarshalJSON() ([]byte, error) {
 }
 
 // NewAccountIdentifier creates new instance of AccountIdentifier.,
-// The argument "uri" is required. If it's empty, this function raises error.
+// The argument "uri" is required. If it's empty, this function returns error.
 func NewAccountIdentifier(uri string) (AccountIdentifier, error) {
 	id := &accountIdentifier{
 		format: FormatAccount,
