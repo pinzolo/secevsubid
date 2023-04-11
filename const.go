@@ -15,6 +15,8 @@ const (
 	FormatPhoneNumber = "phone_number"
 	// FormatDid is the format name for Decentralized Identifier (DID) Format.
 	FormatDid = "did"
+	// FormatUri is the format name for Uniform Resource Identifier (URI) Format.
+	FormatUri = "uri"
 
 	// FieldFormat is the field name for "format" field.
 	// This field is used in all identifier format.
@@ -37,6 +39,9 @@ const (
 	// FieldPhoneNumber is the field name for "phoneNumber" field.
 	// This field is used in Phone Number Identifier Format.
 	fieldPhoneNumber = "phone_number"
+	// FieldUrl is the field name for "url" field.
+	// This field is used in Decentralized Identifier (DID) Identifier Format.
+	fieldUrl = "url"
 )
 
 var (
