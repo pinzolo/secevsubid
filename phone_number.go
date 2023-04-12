@@ -1,7 +1,5 @@
 package secevsubid
 
-import "encoding/json"
-
 // PhoneNumberIdentifier is one of the sub-interfaces of SubjectIdentifier.
 // It represents the "Phone Number Identifier Format" defined in the specification.
 // Reference: https://datatracker.ietf.org/doc/html/draft-ietf-secevent-subject-identifiers#name-phone-number-identifier-for
@@ -13,46 +11,35 @@ type PhoneNumberIdentifier interface {
 	PhoneNumber() string
 	// Validate values held and returns an error if there is a problem.
 	Validate() error
-	// MarshalJSON is required for instance to be converted to JSON.
-	MarshalJSON() ([]byte, error)
 }
 
 type phoneNumberIdentifier struct {
-	format      string
-	phoneNumber string
+	F string `json:"format"`
+	N string `json:"phone_number"`
 }
 
 func (id *phoneNumberIdentifier) Format() string {
-	return id.format
+	return id.F
 }
 
 func (id *phoneNumberIdentifier) PhoneNumber() string {
-	return id.phoneNumber
+	return id.N
 }
 
 func (id *phoneNumberIdentifier) Validate() error {
-	if id.phoneNumber == "" {
+	if id.N == "" {
 		return ErrEmptyPhoneNumber
 	}
 
 	return nil
 }
 
-func (id *phoneNumberIdentifier) MarshalJSON() ([]byte, error) {
-	m := map[string]string{
-		fieldFormat:      id.Format(),
-		fieldPhoneNumber: id.PhoneNumber(),
-	}
-
-	return json.Marshal(m)
-}
-
 // NewPhoneNumberIdentifier creates new instance of PhoneNumberIdentifier.
 // The argument "phoneNumber" is required. If it's empty, this function returns error.
 func NewPhoneNumberIdentifier(phoneNumber string) (PhoneNumberIdentifier, error) {
 	id := &phoneNumberIdentifier{
-		format:      FormatPhoneNumber,
-		phoneNumber: phoneNumber,
+		F: FormatPhoneNumber,
+		N: phoneNumber,
 	}
 	if err := id.Validate(); err != nil {
 		return nil, err

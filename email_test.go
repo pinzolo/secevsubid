@@ -22,7 +22,7 @@ func TestEmailIdentifier(t *testing.T) {
 		t.Errorf("invalid email: got = %s, want = %s", id.Email(), wantEmail)
 	}
 
-	wantJSON := fmt.Sprintf(`{"email":"%s","format":"email"}`, wantEmail)
+	wantJSON := fmt.Sprintf(`{"format":"email","email":"%s"}`, wantEmail)
 	b, err := json.Marshal(id)
 	if err != nil {
 		t.Error(err)

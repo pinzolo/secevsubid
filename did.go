@@ -1,7 +1,5 @@
 package secevsubid
 
-import "encoding/json"
-
 // DidIdentifier is one of the sub-interfaces of SubjectIdentifier.
 // It represents the "Decentralized Identifier (DID) Format" defined in the specification.
 // Reference: https://datatracker.ietf.org/doc/html/draft-ietf-secevent-subject-identifiers#name-decentralized-identifier-di
@@ -13,46 +11,35 @@ type DidIdentifier interface {
 	Url() string
 	// Validate values held and returns an error if there is a problem.
 	Validate() error
-	// MarshalJSON is required for instance to be converted to JSON.
-	MarshalJSON() ([]byte, error)
 }
 
 type didIdentifier struct {
-	format string
-	url    string
+	F string `json:"format"`
+	U string `json:"url"`
 }
 
 func (id *didIdentifier) Format() string {
-	return id.format
+	return id.F
 }
 
 func (id *didIdentifier) Url() string {
-	return id.url
+	return id.U
 }
 
 func (id *didIdentifier) Validate() error {
-	if id.url == "" {
+	if id.U == "" {
 		return ErrEmptyUrl
 	}
 
 	return nil
 }
 
-func (id *didIdentifier) MarshalJSON() ([]byte, error) {
-	m := map[string]string{
-		fieldFormat: id.Format(),
-		fieldUrl:    id.Url(),
-	}
-
-	return json.Marshal(m)
-}
-
 // NewDidIdentifier creates new instance of DidIdentifier.
 // The argument "url" is required. If it's empty, this function returns error.
 func NewDidIdentifier(url string) (DidIdentifier, error) {
 	id := &didIdentifier{
-		format: FormatDid,
-		url:    url,
+		F: FormatDid,
+		U: url,
 	}
 	if err := id.Validate(); err != nil {
 		return nil, err

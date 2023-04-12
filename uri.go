@@ -1,7 +1,5 @@
 package secevsubid
 
-import "encoding/json"
-
 // UriIdentifier is one of the sub-interfaces of SubjectIdentifier.
 // It represents the "Uniform Resource Identifier (URI) Format" defined in the specification.
 // Reference: https://datatracker.ietf.org/doc/html/draft-ietf-secevent-subject-identifiers#name-uniform-resource-identifier
@@ -13,46 +11,35 @@ type UriIdentifier interface {
 	Uri() string
 	// Validate values held and returns an error if there is a problem.
 	Validate() error
-	// MarshalJSON is required for instance to be converted to JSON.
-	MarshalJSON() ([]byte, error)
 }
 
 type uriIdentifier struct {
-	format string
-	uri    string
+	F string `json:"format"`
+	U string `json:"uri"`
 }
 
 func (id *uriIdentifier) Format() string {
-	return id.format
+	return id.F
 }
 
 func (id *uriIdentifier) Uri() string {
-	return id.uri
+	return id.U
 }
 
 func (id *uriIdentifier) Validate() error {
-	if id.uri == "" {
+	if id.U == "" {
 		return ErrEmptyUri
 	}
 
 	return nil
 }
 
-func (id *uriIdentifier) MarshalJSON() ([]byte, error) {
-	m := map[string]string{
-		fieldFormat: id.Format(),
-		fieldUri:    id.Uri(),
-	}
-
-	return json.Marshal(m)
-}
-
 // NewUriIdentifier creates new instance of UriIdentifier.,
 // The argument "uri" is required. If it's empty, this function returns error.
 func NewUriIdentifier(uri string) (UriIdentifier, error) {
 	id := &uriIdentifier{
-		format: FormatUri,
-		uri:    uri,
+		F: FormatUri,
+		U: uri,
 	}
 	if err := id.Validate(); err != nil {
 		return nil, err

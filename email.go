@@ -1,7 +1,5 @@
 package secevsubid
 
-import "encoding/json"
-
 // EmailIdentifier is one of the sub-interfaces of SubjectIdentifier.
 // It represents the "Email Identifier Format" defined in the specification.
 // Reference: https://datatracker.ietf.org/doc/html/draft-ietf-secevent-subject-identifiers#name-email-identifier-format
@@ -13,46 +11,35 @@ type EmailIdentifier interface {
 	Email() string
 	// Validate values held and returns an error if there is a problem.
 	Validate() error
-	// MarshalJSON is required for instance to be converted to JSON.
-	MarshalJSON() ([]byte, error)
 }
 
 type emailIdentifier struct {
-	format string
-	email  string
+	F string `json:"format"`
+	E string `json:"email"`
 }
 
 func (id *emailIdentifier) Format() string {
-	return id.format
+	return id.F
 }
 
 func (id *emailIdentifier) Email() string {
-	return id.email
+	return id.E
 }
 
 func (id *emailIdentifier) Validate() error {
-	if id.email == "" {
+	if id.E == "" {
 		return ErrEmptyEmail
 	}
 
 	return nil
 }
 
-func (id *emailIdentifier) MarshalJSON() ([]byte, error) {
-	m := map[string]string{
-		fieldFormat: id.Format(),
-		fieldEmail:  id.Email(),
-	}
-
-	return json.Marshal(m)
-}
-
 // NewEmailIdentifier creates new instance of EmailIdentifier.
 // The argument "email" is required. If it's empty, this function returns error.
 func NewEmailIdentifier(email string) (EmailIdentifier, error) {
 	id := &emailIdentifier{
-		format: FormatEmail,
-		email:  email,
+		F: FormatEmail,
+		E: email,
 	}
 	if err := id.Validate(); err != nil {
 		return nil, err

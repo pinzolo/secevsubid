@@ -1,7 +1,5 @@
 package secevsubid
 
-import "encoding/json"
-
 // IssuerSubjectIdentifier is one of the sub-interfaces of SubjectIdentifier.
 // It represents the "Issuer and Subject Identifier Format" defined in the specification.
 // Reference: https://datatracker.ietf.org/doc/html/draft-ietf-secevent-subject-identifiers#name-issuer-and-subject-identifi
@@ -15,57 +13,45 @@ type IssuerSubjectIdentifier interface {
 	Subject() string
 	// Validate values held and returns an error if there is a problem.
 	Validate() error
-	// MarshalJSON is required for instance to be converted to JSON.
-	MarshalJSON() ([]byte, error)
 }
 
 type issSubIdentifier struct {
-	format  string
-	issuer  string
-	subject string
+	F string `json:"format"`
+	I string `json:"iss"`
+	S string `json:"sub"`
 }
 
 func (id *issSubIdentifier) Format() string {
-	return id.format
+	return id.F
 }
 
 func (id *issSubIdentifier) Issuer() string {
-	return id.issuer
+	return id.I
 }
 
 func (id *issSubIdentifier) Subject() string {
-	return id.subject
+	return id.S
 }
 
 func (id *issSubIdentifier) Validate() error {
-	if id.issuer == "" {
+	if id.I == "" {
 		return ErrEmptyIssuer
 	}
 
-	if id.subject == "" {
+	if id.S == "" {
 		return ErrEmptySubject
 	}
 
 	return nil
 }
 
-func (id *issSubIdentifier) MarshalJSON() ([]byte, error) {
-	m := map[string]string{
-		fieldFormat:  id.Format(),
-		fieldIssuer:  id.Issuer(),
-		fieldSubject: id.Subject(),
-	}
-
-	return json.Marshal(m)
-}
-
 // NewIssuerSubjectIdentifier creates new instance of IssuerSubjectIdentifier.
 // The argument "issuer" and "subject" is required. If either one of them is empty, this function returns error.
 func NewIssuerSubjectIdentifier(issuer string, subject string) (IssuerSubjectIdentifier, error) {
 	id := &issSubIdentifier{
-		format:  FormatIssuerSubject,
-		issuer:  issuer,
-		subject: subject,
+		F: FormatIssuerSubject,
+		I: issuer,
+		S: subject,
 	}
 	if err := id.Validate(); err != nil {
 		return nil, err

@@ -148,41 +148,19 @@ func TestAliasesIdentifier_MarshalJSON(t *testing.T) {
 	email, _ := secevsubid.NewEmailIdentifier("user@example.com")
 	opaque, _ := secevsubid.NewOpaqueIdentifier("11112222333344445555")
 
-	tests := []struct {
-		name    string
-		ids     []secevsubid.SubjectIdentifier
-		want    string
-		wantErr bool
-	}{
-		{
-			name:    "success",
-			ids:     []secevsubid.SubjectIdentifier{account, email, opaque},
-			want:    `{"format":"aliases","identifiers":[{"format":"account","uri":"acct:example.user@service.example.com"},{"email":"user@example.com","format":"email"},{"format":"opaque","id":"11112222333344445555"}]}`,
-			wantErr: false,
-		},
-		{
-			name:    "empty identifications",
-			ids:     []secevsubid.SubjectIdentifier{},
-			want:    "",
-			wantErr: true,
-		},
+	id, err := secevsubid.NewAliasesIdentifier(account, email, opaque)
+	if err != nil {
+		t.Error(err)
+		return
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			id, err := secevsubid.NewAliasesIdentifier(tt.ids...)
-			if err != nil {
-				t.Error(err)
-				return
-			}
-			b, err := json.Marshal(id)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("MarshalJSON() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			got := string(b)
-			if got != tt.want {
-				t.Errorf("MarshalJSON() got = %v, want %v", got, tt.want)
-			}
-		})
+	b, err := json.Marshal(id)
+	if err != nil {
+		t.Errorf("MarshalJSON() error = %v", err)
+		return
+	}
+	got := string(b)
+	want := `{"format":"aliases","identifiers":[{"format":"account","uri":"acct:example.user@service.example.com"},{"format":"email","email":"user@example.com"},{"format":"opaque","id":"11112222333344445555"}]}`
+	if got != want {
+		t.Errorf("MarshalJSON() got = %v, want %v", got, want)
 	}
 }

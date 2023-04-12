@@ -1,7 +1,6 @@
 package secevsubid
 
 import (
-	"encoding/json"
 	"reflect"
 )
 
@@ -23,27 +22,25 @@ type AliasesIdentifier interface {
 	AddIdentifier(identifier SubjectIdentifier) error
 	// Validate values held and returns an error if there is a problem.
 	Validate() error
-	// MarshalJSON is required for instance to be converted to JSON.
-	MarshalJSON() ([]byte, error)
 }
 
 type aliasesIdentifier struct {
-	format      string
-	identifiers []SubjectIdentifier
+	F   string              `json:"format"`
+	Ids []SubjectIdentifier `json:"identifiers"`
 }
 
 func (id *aliasesIdentifier) Format() string {
-	return id.format
+	return id.F
 }
 
 func (id *aliasesIdentifier) Identifiers() []SubjectIdentifier {
-	c := make([]SubjectIdentifier, len(id.identifiers))
-	_ = copy(c, id.identifiers)
+	c := make([]SubjectIdentifier, len(id.Ids))
+	_ = copy(c, id.Ids)
 	return c
 }
 
 func (id *aliasesIdentifier) Validate() error {
-	if len(id.identifiers) == 0 {
+	if len(id.Ids) == 0 {
 		return ErrEmptyIdentifiers
 	}
 
@@ -51,7 +48,7 @@ func (id *aliasesIdentifier) Validate() error {
 }
 
 func (id *aliasesIdentifier) ContainsIdentifier(identifier SubjectIdentifier) bool {
-	for _, v := range id.identifiers {
+	for _, v := range id.Ids {
 		if v.Format() == identifier.Format() && reflect.DeepEqual(v, identifier) {
 			return true
 		}
@@ -69,26 +66,13 @@ func (id *aliasesIdentifier) AddIdentifier(identifier SubjectIdentifier) error {
 		return ErrDuplicatedIdentifier
 	}
 
-	id.identifiers = append(id.identifiers, identifier)
+	id.Ids = append(id.Ids, identifier)
 	return nil
-}
-
-func (id *aliasesIdentifier) MarshalJSON() ([]byte, error) {
-	if err := id.Validate(); err != nil {
-		return nil, err
-	}
-
-	m := map[string]interface{}{
-		fieldFormat:      id.Format(),
-		fieldIdentifiers: id.Identifiers(),
-	}
-
-	return json.Marshal(m)
 }
 
 // NewAliasesIdentifier creates new instance of AliasesIdentifier.
 func NewAliasesIdentifier(identifiers ...SubjectIdentifier) (AliasesIdentifier, error) {
-	id := &aliasesIdentifier{format: FormatAliases}
+	id := &aliasesIdentifier{F: FormatAliases}
 
 	if len(identifiers) > 0 {
 		for _, i := range identifiers {

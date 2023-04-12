@@ -1,7 +1,5 @@
 package secevsubid
 
-import "encoding/json"
-
 // OpaqueIdentifier is one of the sub-interfaces of SubjectIdentifier.
 // It represents the "Opaque Identifier Format" defined in the specification.
 // Reference: https://datatracker.ietf.org/doc/html/draft-ietf-secevent-subject-identifiers#name-opaque-identifier-format
@@ -13,46 +11,35 @@ type OpaqueIdentifier interface {
 	Id() string
 	// Validate values held and returns an error if there is a problem.
 	Validate() error
-	// MarshalJSON is required for instance to be converted to JSON.
-	MarshalJSON() ([]byte, error)
 }
 
 type opaqueIdentifier struct {
-	format string
-	id     string
+	F string `json:"format"`
+	I string `json:"id"`
 }
 
 func (id *opaqueIdentifier) Format() string {
-	return id.format
+	return id.F
 }
 
 func (id *opaqueIdentifier) Id() string {
-	return id.id
+	return id.I
 }
 
 func (id *opaqueIdentifier) Validate() error {
-	if id.id == "" {
+	if id.I == "" {
 		return ErrEmptyId
 	}
 
 	return nil
 }
 
-func (id *opaqueIdentifier) MarshalJSON() ([]byte, error) {
-	m := map[string]string{
-		fieldFormat: id.Format(),
-		fieldId:     id.Id(),
-	}
-
-	return json.Marshal(m)
-}
-
 // NewOpaqueIdentifier creates new instance of OpaqueIdentifier.
 // The argument "id" is required. If it's empty, this function returns error.
 func NewOpaqueIdentifier(id string) (OpaqueIdentifier, error) {
 	o := &opaqueIdentifier{
-		format: FormatOpaque,
-		id:     id,
+		F: FormatOpaque,
+		I: id,
 	}
 	if err := o.Validate(); err != nil {
 		return nil, err

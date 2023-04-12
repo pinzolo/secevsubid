@@ -12,8 +12,6 @@ type SubjectIdentifier interface {
 	Format() string
 	// Validate values held and returns an error if there is a problem.
 	Validate() error
-	// MarshalJSON is required for instance to be converted to JSON.
-	MarshalJSON() ([]byte, error)
 }
 
 // Wrapper internally holds a single instance of SubjectIdentifier.
@@ -30,7 +28,7 @@ func (w *Wrapper) Value() SubjectIdentifier {
 // MarshalJSON implements json.Marshaler.
 // Returns JSON representation of the SubjectIdentifier held internally.
 func (w *Wrapper) MarshalJSON() ([]byte, error) {
-	return w.v.MarshalJSON()
+	return json.Marshal(w.v)
 }
 
 // UnmarshalJSON implements json.Unmarshaler
