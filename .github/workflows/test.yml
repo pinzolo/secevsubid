@@ -32,7 +32,7 @@ jobs:
         run: pwd
 
       - name: Move to checkouted directory
-        run: cd ${{ runner.workspace }}/secevsubid
+        run: cd ${{ runner.workspace }}/secevsubid/src/github.com/pinzolo/secevsubid
 
       - name: Build
         run: go build -v ./...
