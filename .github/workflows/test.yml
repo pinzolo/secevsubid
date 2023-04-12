@@ -34,12 +34,12 @@ jobs:
         env:
           GOPATH: ${{ github.workspace }}
 
-      - name: Build with ${{ matrix.go-version }}
+      - name: Build with Go ${{ matrix.go-version }}
         run: cd ${{ github.workspace }}/src/github.com/pinzolo/secevsubid && go build -v ./...
         env:
           GOPATH: ${{ github.workspace }}
 
-      - name: Test with ${{ matrix.go-version }}
+      - name: Test with Go ${{ matrix.go-version }}
         run: cd ${{ github.workspace }}/src/github.com/pinzolo/secevsubid && go test -v ./...
         env:
           GOPATH: ${{ github.workspace }}
