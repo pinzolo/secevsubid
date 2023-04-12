@@ -4,6 +4,7 @@ import "encoding/json"
 
 // UriIdentifier is one of the sub-interfaces of SubjectIdentifier.
 // It represents the "Uniform Resource Identifier (URI) Format" defined in the specification.
+// Reference: https://datatracker.ietf.org/doc/html/draft-ietf-secevent-subject-identifiers#name-uniform-resource-identifier
 type UriIdentifier interface {
 	// Format returns name of the format actually held by the instance.
 	// The value is the fixed value "uri".

@@ -4,6 +4,7 @@ import "encoding/json"
 
 // DidIdentifier is one of the sub-interfaces of SubjectIdentifier.
 // It represents the "Decentralized Identifier (DID) Format" defined in the specification.
+// Reference: https://datatracker.ietf.org/doc/html/draft-ietf-secevent-subject-identifiers#name-decentralized-identifier-di
 type DidIdentifier interface {
 	// Format returns name of the format actually held by the instance.
 	// The value is the fixed value "did".

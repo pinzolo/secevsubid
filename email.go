@@ -4,6 +4,7 @@ import "encoding/json"
 
 // EmailIdentifier is one of the sub-interfaces of SubjectIdentifier.
 // It represents the "Email Identifier Format" defined in the specification.
+// Reference: https://datatracker.ietf.org/doc/html/draft-ietf-secevent-subject-identifiers#name-email-identifier-format
 type EmailIdentifier interface {
 	// Format returns name of the format actually held by the instance.
 	// The value is the fixed value "email".

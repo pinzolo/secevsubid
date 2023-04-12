@@ -4,6 +4,7 @@ import "encoding/json"
 
 // PhoneNumberIdentifier is one of the sub-interfaces of SubjectIdentifier.
 // It represents the "Phone Number Identifier Format" defined in the specification.
+// Reference: https://datatracker.ietf.org/doc/html/draft-ietf-secevent-subject-identifiers#name-phone-number-identifier-for
 type PhoneNumberIdentifier interface {
 	// Format returns name of the format actually held by the instance.
 	// The value is the fixed value "phoneNumber".

@@ -4,6 +4,7 @@ import "encoding/json"
 
 // AccountIdentifier is one of the sub-interfaces of SubjectIdentifier.
 // It represents the "Account Identifier Format" defined in the specification.
+// Reference: https://datatracker.ietf.org/doc/html/draft-ietf-secevent-subject-identifiers#name-account-identifier-format
 type AccountIdentifier interface {
 	// Format returns name of the format actually held by the instance.
 	// The value is the fixed value "account".
