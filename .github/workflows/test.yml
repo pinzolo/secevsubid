@@ -35,11 +35,11 @@ jobs:
         run: cd ${{ runner.workspace }}/secevsubid/src/github.com/pinzolo/secevsubid
 
       - name: Build
-        run: go build -v ./...
+        run: cd ${{ runner.workspace }}/secevsubid/src/github.com/pinzolo/secevsubid && go build -v ./...
         env:
           GOPATH: ${{ runner.workspace }}/secevsubid
 
       - name: Execute tests
-        run: go test -v ./...
+        run: cd ${{ runner.workspace }}/secevsubid/src/github.com/pinzolo/secevsubid && go test -v ./...
         env:
           GOPATH: ${{ runner.workspace }}/secevsubid
