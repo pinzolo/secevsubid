@@ -1,6 +1,7 @@
 package secevsubid_test
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/pinzolo/secevsubid"
 	"testing"
@@ -22,7 +23,7 @@ func TestDidIdentifier(t *testing.T) {
 	}
 
 	wantJSON := fmt.Sprintf(`{"format":"did","url":"%s"}`, wantUrl)
-	b, err := id.MarshalJSON()
+	b, err := json.Marshal(id)
 	if err != nil {
 		t.Error(err)
 		return

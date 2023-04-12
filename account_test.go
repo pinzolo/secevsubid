@@ -1,6 +1,7 @@
 package secevsubid_test
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/pinzolo/secevsubid"
 	"testing"
@@ -22,7 +23,7 @@ func TestAccountIdentifier(t *testing.T) {
 	}
 
 	wantJSON := fmt.Sprintf(`{"format":"account","uri":"%s"}`, wantUri)
-	b, err := id.MarshalJSON()
+	b, err := json.Marshal(id)
 	if err != nil {
 		t.Error(err)
 		return
