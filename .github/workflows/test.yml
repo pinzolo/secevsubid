@@ -28,6 +28,14 @@ jobs:
         env:
           GOPATH: ${{ runner.workspace }}/secevsubid
 
+      - name: Debug
+        run: pwd
+
+      - name: Build
+        run: go build -v ./...
+        env:
+          GOPATH: ${{ runner.workspace }}/secevsubid
+
       - name: Execute tests
         run: go test -v ./...
         env:
