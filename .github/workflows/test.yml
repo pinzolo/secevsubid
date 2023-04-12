@@ -28,12 +28,6 @@ jobs:
         env:
           GOPATH: ${{ runner.workspace }}/secevsubid
 
-      - name: Debug
-        run: pwd
-
-      - name: Move to checkouted directory
-        run: cd ${{ runner.workspace }}/secevsubid/src/github.com/pinzolo/secevsubid
-
       - name: Build
         run: cd ${{ runner.workspace }}/secevsubid/src/github.com/pinzolo/secevsubid && go build -v ./...
         env:
