@@ -14,6 +14,12 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-version:
+          - 1.18
+          - 1.19
+          - 1.20
 
     steps:
       - name: Checkout
@@ -21,19 +27,19 @@ jobs:
         with:
           path: src/github.com/pinzolo/secevsubid
 
-      - name: Set up Go
+      - name: Set up Go ${{ matrix.go-version }}
         uses: actions/setup-go@v4
         with:
-          go-version: 1.18
+          go-version: ${{ matrix.go-version }}
         env:
           GOPATH: ${{ github.workspace }}
 
-      - name: Build
+      - name: Build with ${{ matrix.go-version }}
         run: cd ${{ github.workspace }}/src/github.com/pinzolo/secevsubid && go build -v ./...
         env:
           GOPATH: ${{ github.workspace }}
 
-      - name: Execute tests
+      - name: Test with ${{ matrix.go-version }}
         run: cd ${{ github.workspace }}/src/github.com/pinzolo/secevsubid && go test -v ./...
         env:
           GOPATH: ${{ github.workspace }}
