@@ -6,7 +6,7 @@ package secevsubid
 type PhoneNumberIdentifier interface {
 	// Format returns name of the format actually held by the instance.
 	// The value is the fixed value "phoneNumber".
-	Format() string
+	Format() Format
 	// PhoneNumber returns phoneNumber value held by the instance.
 	PhoneNumber() string
 	// Validate values held and returns an error if there is a problem.
@@ -14,11 +14,11 @@ type PhoneNumberIdentifier interface {
 }
 
 type phoneNumberIdentifier struct {
-	F string `json:"format"`
+	F Format `json:"format"`
 	N string `json:"phone_number"`
 }
 
-func (id *phoneNumberIdentifier) Format() string {
+func (id *phoneNumberIdentifier) Format() Format {
 	return id.F
 }
 

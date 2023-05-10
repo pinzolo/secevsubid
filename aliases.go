@@ -10,7 +10,7 @@ import (
 type AliasesIdentifier interface {
 	// Format returns name of the format actually held by the instance.
 	// The value is the fixed value "aliases".
-	Format() string
+	Format() Format
 	// Identifiers returns SubjectIdentifier list value held by the instance.
 	Identifiers() []SubjectIdentifier
 	// ContainsIdentifier returns whether a SubjectIdentifier with the same content as the argument already exists.
@@ -25,11 +25,11 @@ type AliasesIdentifier interface {
 }
 
 type aliasesIdentifier struct {
-	F   string              `json:"format"`
+	F   Format              `json:"format"`
 	Ids []SubjectIdentifier `json:"identifiers"`
 }
 
-func (id *aliasesIdentifier) Format() string {
+func (id *aliasesIdentifier) Format() Format {
 	return id.F
 }
 

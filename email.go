@@ -6,7 +6,7 @@ package secevsubid
 type EmailIdentifier interface {
 	// Format returns name of the format actually held by the instance.
 	// The value is the fixed value "email".
-	Format() string
+	Format() Format
 	// Email returns email value held by the instance.
 	Email() string
 	// Validate values held and returns an error if there is a problem.
@@ -14,11 +14,11 @@ type EmailIdentifier interface {
 }
 
 type emailIdentifier struct {
-	F string `json:"format"`
+	F Format `json:"format"`
 	E string `json:"email"`
 }
 
-func (id *emailIdentifier) Format() string {
+func (id *emailIdentifier) Format() Format {
 	return id.F
 }
 

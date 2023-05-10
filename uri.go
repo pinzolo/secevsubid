@@ -6,7 +6,7 @@ package secevsubid
 type UriIdentifier interface {
 	// Format returns name of the format actually held by the instance.
 	// The value is the fixed value "uri".
-	Format() string
+	Format() Format
 	// Uri returns uri value held by the instance.
 	Uri() string
 	// Validate values held and returns an error if there is a problem.
@@ -14,11 +14,11 @@ type UriIdentifier interface {
 }
 
 type uriIdentifier struct {
-	F string `json:"format"`
+	F Format `json:"format"`
 	U string `json:"uri"`
 }
 
-func (id *uriIdentifier) Format() string {
+func (id *uriIdentifier) Format() Format {
 	return id.F
 }
 

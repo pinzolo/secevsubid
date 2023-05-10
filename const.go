@@ -2,23 +2,25 @@ package secevsubid
 
 import "errors"
 
+type Format string
+
 const (
 	// FormatAccount is the format name for Account Identifier Format.
-	FormatAccount = "account"
+	FormatAccount = Format("account")
 	// FormatEmail is the format name for Email Identifier Format.
-	FormatEmail = "email"
+	FormatEmail = Format("email")
 	// FormatIssuerSubject is the format name for Issuer and Subject Identifier Format.
-	FormatIssuerSubject = "iss_sub"
+	FormatIssuerSubject = Format("iss_sub")
 	// FormatOpaque is the format name for Opaque Identifier Format.
-	FormatOpaque = "opaque"
+	FormatOpaque = Format("opaque")
 	// FormatPhoneNumber is the format name for Phone Number Identifier Format.
-	FormatPhoneNumber = "phone_number"
+	FormatPhoneNumber = Format("phone_number")
 	// FormatDid is the format name for Decentralized Identifier (DID) Format.
-	FormatDid = "did"
+	FormatDid = Format("did")
 	// FormatUri is the format name for Uniform Resource Identifier (URI) Format.
-	FormatUri = "uri"
+	FormatUri = Format("uri")
 	// FormatAliases is the format name for Aliases Identifier Format.
-	FormatAliases = "aliases"
+	FormatAliases = Format("aliases")
 
 	// FieldFormat is the field name for "format" field.
 	// This field is used in all identifier format.

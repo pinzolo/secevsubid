@@ -6,7 +6,7 @@ package secevsubid
 type IssuerSubjectIdentifier interface {
 	// Format returns name of the format actually held by the instance.
 	// The value is the fixed value "issSub".
-	Format() string
+	Format() Format
 	// Issuer returns issuer value held by the instance.
 	Issuer() string
 	// Subject returns subject value held by the instance.
@@ -16,12 +16,12 @@ type IssuerSubjectIdentifier interface {
 }
 
 type issSubIdentifier struct {
-	F string `json:"format"`
+	F Format `json:"format"`
 	I string `json:"iss"`
 	S string `json:"sub"`
 }
 
-func (id *issSubIdentifier) Format() string {
+func (id *issSubIdentifier) Format() Format {
 	return id.F
 }
 

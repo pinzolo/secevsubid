@@ -9,7 +9,7 @@ import (
 // See: https://datatracker.ietf.org/doc/html/draft-ietf-secevent-subject-identifiers.
 type SubjectIdentifier interface {
 	// Format returns name of the format actually held by the instance.
-	Format() string
+	Format() Format
 	// Validate values held and returns an error if there is a problem.
 	Validate() error
 }
@@ -73,7 +73,7 @@ func decodeIdentifier(m map[string]interface{}) (SubjectIdentifier, error) {
 		return nil, ErrNoFormat
 	}
 
-	switch f {
+	switch Format(f) {
 	case FormatAccount:
 		return NewAccountIdentifier(extractStringValue(m, fieldUri))
 	case FormatEmail:
@@ -108,7 +108,7 @@ func decodeAliases(m map[string]interface{}) (SubjectIdentifier, error) {
 			return nil, fmt.Errorf("not JSON object: %v", v)
 		}
 
-		f := extractStringValue(d, fieldFormat)
+		f := Format(extractStringValue(d, fieldFormat))
 		if f == "" {
 			return nil, ErrNoFormat
 		}

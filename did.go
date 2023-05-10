@@ -6,7 +6,7 @@ package secevsubid
 type DidIdentifier interface {
 	// Format returns name of the format actually held by the instance.
 	// The value is the fixed value "did".
-	Format() string
+	Format() Format
 	// Url returns url value held by the instance.
 	Url() string
 	// Validate values held and returns an error if there is a problem.
@@ -14,11 +14,11 @@ type DidIdentifier interface {
 }
 
 type didIdentifier struct {
-	F string `json:"format"`
+	F Format `json:"format"`
 	U string `json:"url"`
 }
 
-func (id *didIdentifier) Format() string {
+func (id *didIdentifier) Format() Format {
 	return id.F
 }
 

@@ -6,7 +6,7 @@ package secevsubid
 type OpaqueIdentifier interface {
 	// Format returns name of the format actually held by the instance.
 	// The value is the fixed value "opaque".
-	Format() string
+	Format() Format
 	// Id returns id value held by the instance.
 	Id() string
 	// Validate values held and returns an error if there is a problem.
@@ -14,11 +14,11 @@ type OpaqueIdentifier interface {
 }
 
 type opaqueIdentifier struct {
-	F string `json:"format"`
+	F Format `json:"format"`
 	I string `json:"id"`
 }
 
-func (id *opaqueIdentifier) Format() string {
+func (id *opaqueIdentifier) Format() Format {
 	return id.F
 }
 
